@@ -1,0 +1,61 @@
+<div style="padding: 30px; font-family: Arial, sans-serif; max-width: 650px; margin: 0 auto;">
+  <h2 style="text-align: center; color: #dd1b16;">Gestión de Usuarios (Angular)</h2>
+
+  <!-- Formulario -->
+  <form (ngSubmit)="saveUser()" style="margin-bottom: 25px; display: flex; gap: 10px;">
+    <input
+      type="text"
+      placeholder="Nombre completo"
+      [(ngModel)]="name"
+      name="name"
+      style="padding: 10px; flex: 1; border-radius: 4px; border: 1px solid #ccc;"
+    />
+    <input
+      type="email"
+      placeholder="Correo electrónico"
+      [(ngModel)]="email"
+      name="email"
+      style="padding: 10px; flex: 1; border-radius: 4px; border: 1px solid #ccc;"
+    />
+    <button
+      type="submit"
+      style="padding: 10px 18px; background-color: #dd1b16; color: white; border: none; border-radius: 4px; cursor: pointer;"
+    >
+      {{ editingId ? 'Actualizar' : 'Guardar' }}
+    </button>
+    <button
+      *ngIf="editingId"
+      type="button"
+      (click)="resetForm()"
+      style="padding: 10px 18px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;"
+    >
+      Cancelar
+    </button>
+  </form>
+
+  <!-- Tabla -->
+  <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; text-align: left; border-collapse: collapse;">
+    <thead>
+      <tr style="background-color: #f8f9fa;">
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button (click)="editUser(user)" style="margin-right: 8px; cursor: pointer;">Editar</button>
+          <button (click)="deleteUser(user.id)" style="color: red; cursor: pointer;">Eliminar</button>
+        </td>
+      </tr>
+      <tr *ngIf="users.length === 0">
+        <td colSpan="4" style="text-align: center;">No hay usuarios registrados</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
